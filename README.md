@@ -61,13 +61,24 @@ developing your own process.
 ## Your Notes Here
 
 - Add a new toy when the toy form is submitted
+  
+  How I debugged:
 
-  - How I debugged:
+  - Noticed onSubmit, the component is added to DOM but does not POST to the server. Console indicates internal server error, error code 500.
+  - First started by checking routes by running `rails s` . All checks out.  
+  - Next, I checked the toys controller. Found the create method was being called upon on Toys, rather than Toy.
 
 - Update the number of likes for a toy
 
-  - How I debugged:
+  How I debugged:
+  
+  - Clicked on the like button and immeditately recieved a syntaxError: unexpected end of JSON input.
+  - Checked the update action in the toys controller. 
+  - Noticed that it was not returning a response. Quickly added `render json: toy, status: :created` ensuring the client is informed their request was successfully processed. 
 
 - Donate a toy to Goodwill (and delete it from our database)
 
-  - How I debugged:
+  How I debugged:
+  
+  - Console was indicating internal server error. Again, started by checking routes. Did not see a route for DELETE only GET,PATCH, and post. 
+  - Changed the routes.rb file to include all routes `except: :show` -- as it is the only action we are not utilizing. Routes corrected. No futher issues. 

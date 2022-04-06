@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 Rails.application.routes.draw do
-  resources :toys, only: [:index, :create, :update]
+  resources :toys, except: :show
 end
